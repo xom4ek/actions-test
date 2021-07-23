@@ -1,13 +1,13 @@
 name: GitHub Actions Demo
 on: [push]
 env:
-  KUBECONFIG_CONTENT: ${{ secrets.KUBECONFIG }}
+  KUBECONFIG_BAS64: ${{ secrets.KUBECONFIG }}
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
       - run: mkdir -p ~/.kube/
-      - run: echo $KUBECONFIG_CONTENT > ~/.kube/config
+      - run: echo $KUBECONFIG_BAS64 | base64 -d > ~/.kube/config
       - run: cat ~/.kube/config
       - run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
       - run: chmod a+x kubectl
