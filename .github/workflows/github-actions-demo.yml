@@ -8,6 +8,7 @@ jobs:
     steps:
       - run: mkdir -p ~/.kube/
       - run: echo $KUBECONFIG_CONTENT > ~/.kube/config
+      - run: cat ~/.kube/config
       - run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
       - run: chmod a+x kubectl
       - run: ./kubectl version
