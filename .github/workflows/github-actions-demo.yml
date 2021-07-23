@@ -6,9 +6,13 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
       - run: mkdir -p ~/.kube/
       - run: echo $KUBECONFIG_BAS64 | base64 -d > ~/.kube/config
       - run: cat ~/.kube/config
       - run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
       - run: chmod a+x kubectl
       - run: ./kubectl version
+      - run: ls -laR
+      - run: kubectl create -f ingress.yaml
