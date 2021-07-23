@@ -6,8 +6,8 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: echo $KUBECONFIG_CONTENT > /tmp/kubeconfig
-      - run: export KUBECONFIG="/tmp/kubeconfig"
+      - run: mkdir -p ~/.kube/
+      - run: echo $KUBECONFIG_CONTENT > ~/.kube/config
       - run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
       - run: chmod a+x kubectl
       - run: ./kubectl version
