@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: for-delete
+spec:
+  selector:
+    matchLabels:
+      app: for-delete
+  template:
+    metadata:
+      labels:
+        app: for-delete
+    spec:
+      containers:
+      - name: for-delete
+        image: DOCKER_IMAGE
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: for-delete
+spec:
+  selector:
+    app: for-delete
+  ports:
+  - port: 80
+    targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: for-delete
+  labels:
+    name: for-delete
+spec:
+  rules:
+  - host: for-delete.35.217.27.166.nip.io
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: for-delete
+            port:
+              number: 80
