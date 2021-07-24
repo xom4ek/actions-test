@@ -48,7 +48,7 @@ jobs:
           export DOCKER_IMAGE=${{ steps.meta.outputs.tags }}
           envsubst < app.yaml > app-change.yaml
           cat app-change.yaml | grep image
-      - run:
+      - run: |
           kubectl apply -f app-change.yaml -n default
           kubectl get pods -n default -lapp=for-delete
           kubectl get svc -n default -lapp=for-delete
