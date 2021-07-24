@@ -44,5 +44,5 @@ jobs:
           echo $KUBECONFIG_BAS64 | base64 -d > ~/.kube/config
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -o kubcetl
           chmod a+x kubectl
-          sed -i 's/$DOCKER_IMAGE/${{ steps.meta.outputs.tags }}' app.yaml
+          sed -i "s/DOCKER_IMAGE/${{ steps.meta.outputs.tags }}/g" app.yaml
           kubectl apply -f app.yaml -n default
